@@ -14,4 +14,4 @@ export interface INote {
 }
 
 export type CreateNoteDTO = Omit<INote, 'NoteID' | 'uploadedAt'>;
-export type UpdateNoteDTO = Partial<CreateNoteDTO>;
+export type UpdateNoteDTO = Partial<INote>;

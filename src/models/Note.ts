@@ -1,73 +1,75 @@
-// import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-// import { Class } from './Class';
-// import { AccessGroup } from './AccessGroup';
-// import { INote, Month, Lesson } from '../types/note.types';
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Class } from './Class';
+import { AccessGroup } from './AccessGroup';
+import { CreateNoteDTO, INote } from '../types/note.types';
+import { Month } from '../types/lecture.types';
+import { Lesson } from '../types/lecture.types';
 
-// @Table({
-//   tableName: 'notes',
-//   timestamps: true,
-// })
-// export class Note extends Model<INote> {
-//   @Column({
-//     type: DataType.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   })
-//   NoteID!: number;
+@Table({
+  tableName: 'notes',
+  timestamps: true,
+})
+export class Note extends Model<INote, CreateNoteDTO> {
+  @Column({
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  })
+  NoteID!: number;
 
-//   @Column({
-//     type: DataType.STRING,
-//     allowNull: false,
-//   })
-//   title!: string;
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  title!: string;
 
-//   @Column(DataType.STRING)
-//   description?: string;
+  @Column(DataType.STRING)
+  description?: string;
 
-//   @Column({
-//     type: DataType.DATE,
-//     defaultValue: DataType.NOW,
-//   })
-//   date!: Date;
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  date!: Date;
 
-//   @Column(DataType.STRING)
-//   file?: string;
+  @Column(DataType.STRING)
+  file?: string;
 
-//   @Column({
-//     type: DataType.DATE,
-//     defaultValue: DataType.NOW,
-//   })
-//   uploadedAt!: Date;
+  @Column({
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  uploadedAt!: Date;
 
-//   @ForeignKey(() => AccessGroup)
-//   @Column({
-//     type: DataType.STRING,
-//     allowNull: false,
-//   })
-//   accessGroupID!: string;
+  @ForeignKey(() => AccessGroup)
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  accessGroupID!: string;
 
-//   @Column({
-//     type: DataType.ENUM(...Object.values(Month)),
-//     allowNull: false,
-//   })
-//   belongingMonth!: Month;
+  @Column({
+    type: DataType.ENUM(...Object.values(Month) as string[]),
+    allowNull: false,
+  })
+  belongingMonth!: Month;
 
-//   @Column({
-//     type: DataType.ENUM(...Object.values(Lesson)),
-//     allowNull: false,
-//   })
-//   belongingLesson!: Lesson;
+  @Column({
+    type: DataType.ENUM(...Object.values(Lesson) as string[]),
+    allowNull: false,
+  })
+  belongingLesson!: Lesson;
 
-//   @ForeignKey(() => Class)
-//   @Column({
-//     type: DataType.INTEGER,
-//     allowNull: false,
-//   })
-//   classID!: number;
+  @ForeignKey(() => Class)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  classID!: number;
 
-//   @BelongsTo(() => Class)
-//   class!: Class;
+  @BelongsTo(() => Class)
+  class!: Class;
 
-//   @BelongsTo(() => AccessGroup)
-//   accessGroup!: AccessGroup;
-// }
+  @BelongsTo(() => AccessGroup)
+  accessGroup!: AccessGroup;
+}
