@@ -7,6 +7,7 @@ import { Lesson } from '../types/lecture.types';
 
 @Table({
   tableName: 'notes',
+  schema: 'dopamineLite',
   timestamps: true,
 })
 export class Note extends Model<INote, CreateNoteDTO> {

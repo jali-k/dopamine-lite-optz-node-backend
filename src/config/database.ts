@@ -7,6 +7,8 @@ import { Lecture } from '../models/Lecture';
 
 dotenv.config();
 
+console.log('DB_HOST:', process.env.DB_HOST);
+
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   username: process.env.DB_USER,
@@ -15,6 +17,12 @@ const sequelize = new Sequelize({
   port: parseInt(process.env.DB_PORT || '5432'),
   dialect: 'postgres',
   // models: [Class, Lecture, AccessGroup, Note],
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, 
+    },
+  },
   models: [Class, Lecture, AccessGroup],
   logging: false,
   pool: {

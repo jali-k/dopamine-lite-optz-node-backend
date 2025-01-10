@@ -5,6 +5,7 @@ import { IAccessGroup } from '../types/accessGroup.types';
 
 @Table({
   tableName: 'access_groups',
+  schema: 'dopamineLite',
   timestamps: true,
 })
 export class AccessGroup extends Model<IAccessGroup> {

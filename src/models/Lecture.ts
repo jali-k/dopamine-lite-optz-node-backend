@@ -6,6 +6,7 @@ import { ILecture, Month, Lesson, CreateLectureDTO } from '../types/lecture.type
 
 @Table({
   tableName: 'lectures',
+  schema: 'dopamineLite',
   timestamps: true,
 })
 export class Lecture extends Model<ILecture, CreateLectureDTO> {

@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 
 @Table({
   tableName: 'users',
+  schema: 'dopamineLite',
   timestamps: true,
 })
 export class User extends Model<IUser> {

@@ -5,6 +5,7 @@ import { CreateClassDTO, IClass } from '../types/class.types';
 
 @Table({
   tableName: 'classes',
+  schema: 'dopamineLite',
   timestamps: true,
 })
 export class Class extends Model<IClass, CreateClassDTO> {
