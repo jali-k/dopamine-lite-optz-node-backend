@@ -41,6 +41,7 @@ export interface ILecture {
   accessGroupID: string;
   belongingMonth: Month;
   belongingLesson: Lesson;
+  duration: number;
 }
 
 export type CreateLectureDTO = Omit<ILecture, 'lectureID' | 'uploadedAt'>;

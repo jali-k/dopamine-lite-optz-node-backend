@@ -12,18 +12,21 @@ export class AccessGroup extends Model<IAccessGroup> {
   @Column({
     type: DataType.STRING,
     primaryKey: true,
+    field: 'accessgroupid', 
   })
   accessGroupID!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'name', 
   })
   name!: string;
 
   @Column({
     type: DataType.ARRAY(DataType.STRING),
     defaultValue: [],
+    field: 'accesslist', 
   })
   accessList!: string[];
 

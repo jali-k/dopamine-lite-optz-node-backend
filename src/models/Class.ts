@@ -13,14 +13,30 @@ export class Class extends Model<IClass, CreateClassDTO> {
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: 'classid',
   })
   classID!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'name',
   })
   name!: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    field: 'createdat', 
+  })
+  createdAt!: Date;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    field: 'updatedat', 
+  })
+  updatedAt!: Date;
 
   @HasMany(() => Lecture)
   lectures!: Lecture[];
