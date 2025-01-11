@@ -13,5 +13,5 @@ export interface INote {
   classIs: number;
 }
 
-export type CreateNoteDTO = Omit<INote, 'NoteID' | 'uploadedAt'>;
+export type CreateNoteDTO = Omit<INote, 'NoteId' | 'uploadedAt'>;
 export type UpdateNoteDTO = Partial<INote>;
