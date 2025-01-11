@@ -19,14 +19,22 @@ export const accessGroupController = {
   }),
 
   createAccessGroup: catchAsync(async (req: Request<{}, {}, CreateAccessGroupDTO>, res: Response) => {
+    const { accessGroupId, ...rest } = req.body;
+    if (!accessGroupId) {
+      throw new ApiError(400, 'accessGroupId is required');
+    }
     const newAccessGroup = await AccessGroup.create(req.body);
     res.status(201).json({ success: true, data: newAccessGroup });
   }),
 
   updateAccessGroup: catchAsync(
     async (req: Request< UpdateAccessGroupDTO>, res: Response) => {
+      const { accessGroupId, ...rest } = req.body;
+      if (!accessGroupId) {
+        throw new ApiError(400, 'accessGroupId is required');
+      }
       const [updatedRows] = await AccessGroup.update(req.body, {
-        where: { accessGroupID: req.params.accessGroupID },
+        where: { accessGroupId: req.params.accessGroupId },
       });
 
       if (updatedRows === 0) {
@@ -39,7 +47,7 @@ export const accessGroupController = {
 
   deleteAccessGroup: catchAsync(async (req: Request, res: Response) => {
     const deleted = await AccessGroup.destroy({
-      where: { accessGroupID: req.params.id },
+      where: { accessGroupId: req.params.id },
     });
 
     if (!deleted) {

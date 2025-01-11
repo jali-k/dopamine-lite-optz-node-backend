@@ -1,6 +1,6 @@
 import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
 import { Lecture } from './Lecture';
-// import { Note } from './Note';
+import { Note } from './Note';
 import { CreateClassDTO, IClass } from '../types/class.types';
 
 @Table({
@@ -15,7 +15,7 @@ export class Class extends Model<IClass, CreateClassDTO> {
     autoIncrement: true,
     field: 'classid',
   })
-  classID!: number;
+  classId!: number;
 
   @Column({
     type: DataType.STRING,
@@ -24,23 +24,9 @@ export class Class extends Model<IClass, CreateClassDTO> {
   })
   name!: string;
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-    field: 'createdat', 
-  })
-  createdAt!: Date;
-
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
-    field: 'updatedat', 
-  })
-  updatedAt!: Date;
-
   @HasMany(() => Lecture)
   lectures!: Lecture[];
 
-  // @HasMany(() => Note)
-  // notes!: Note[];
+  @HasMany(() => Note)
+  notes!: Note[];
 }

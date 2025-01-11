@@ -1,5 +1,5 @@
 export interface IAccessGroup {
-  accessGroupID: string;
+  accessGroupId: string;
   name: string;
   accessList: string[];
 }

@@ -1,12 +1,10 @@
 export interface IClass {
-  classID: number;
+  classId: number;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export type ClassAttributes = IClass;
-export type ClassCreationAttributes = Omit<IClass, 'classID' | 'createdAt' | 'updatedAt'>;
+export type ClassCreationAttributes = Omit<IClass, 'classId' | 'createdAt' | 'updatedAt'>;
 
 export type CreateClassDTO = ClassCreationAttributes;
 export type UpdateClassDTO = Partial<IClass>;

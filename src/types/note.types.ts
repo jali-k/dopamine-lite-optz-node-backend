@@ -1,7 +1,7 @@
 import { Lesson, Month } from "./lecture.types";
 
 export interface INote {
-  NoteID: number;
+  noteId: number;
   title: string;
   description?: string;
   date: Date;
@@ -10,7 +10,7 @@ export interface INote {
   accessGroupID: string;
   belongingMonth: Month;
   belongingLesson: Lesson;
-  classID: number;
+  classIs: number;
 }
 
 export type CreateNoteDTO = Omit<INote, 'NoteID' | 'uploadedAt'>;

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { AccessGroup } from '../models/AccessGroup';
 import { Class } from '../models/Class';
 import { Lecture } from '../models/Lecture';
-// import { Note } from '../models/Note';
+import { Note } from '../models/Note';
 
 dotenv.config();
 
@@ -16,14 +16,13 @@ const sequelize = new Sequelize({
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432'),
   dialect: 'postgres',
-  // models: [Class, Lecture, AccessGroup, Note],
   dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false, 
     },
   },
-  models: [Class, Lecture, AccessGroup],
+  models: [Class, Lecture, AccessGroup, Note],
   logging: false,
   pool: {
     max: 5,

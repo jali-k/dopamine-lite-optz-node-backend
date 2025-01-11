@@ -31,18 +31,18 @@ export enum Lesson {
 }
 
 export interface ILecture {
-  lectureID: number;
-  classID: number;
+  lectureId: number;
+  classId: number;
   title: string;
   description?: string;
   date: Date;
   handler: string;
   uploadedAt: Date;
-  accessGroupID: string;
+  accessGroupId: string;
   belongingMonth: Month;
   belongingLesson: Lesson;
   duration: number;
 }
 
-export type CreateLectureDTO = Omit<ILecture, 'lectureID' | 'uploadedAt'>;
+export type CreateLectureDTO = Omit<ILecture, 'lectureId' | 'uploadedAt'>;
 export type UpdateLectureDTO = Partial<ILecture>;

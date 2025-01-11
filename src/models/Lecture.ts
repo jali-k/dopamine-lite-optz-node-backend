@@ -6,24 +6,24 @@ import { ILecture, Month, Lesson, CreateLectureDTO } from '../types/lecture.type
 @Table({
   tableName: 'lectures',
   schema: 'dopamineLite',
-  timestamps: false, 
+  timestamps: true, 
 })
 export class Lecture extends Model<ILecture, CreateLectureDTO> {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'lectureid', 
+    field: 'lectureId', 
   })
-  lectureID!: number;
+  lectureId!: number;
 
   @ForeignKey(() => Class)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    field: 'classid', 
+    field: 'classId', 
   })
-  classID!: number;
+  classId!: number;
 
   @Column({
     type: DataType.STRING,
@@ -55,7 +55,7 @@ export class Lecture extends Model<ILecture, CreateLectureDTO> {
   @Column({
     type: DataType.DATE,
     defaultValue: DataType.NOW,
-    field: 'uploadedat', 
+    field: 'uploadedAt', 
   })
   uploadedAt!: Date;
 
@@ -63,21 +63,21 @@ export class Lecture extends Model<ILecture, CreateLectureDTO> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    field: 'accessgroupid', 
+    field: 'accessGroupId', 
   })
-  accessGroupID!: string;
+  accessGroupId!: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(Month)),
     allowNull: false,
-    field: 'belongingmonth', 
+    field: 'belongingMonth', 
   })
   belongingMonth!: Month;
 
   @Column({
     type: DataType.ENUM(...Object.values(Lesson)),
     allowNull: false,
-    field: 'belonginglesson',
+    field: 'belongingLesson',
   })
   belongingLesson!: Lesson;
 

@@ -25,7 +25,7 @@ export const noteController = {
 
   updateNote: catchAsync(async(req: Request<UpdateNoteDTO>, res: Response) => {
     const [updatedRows] = await Note.update(req.body, {
-      where: { NoteID: req.params.NoteID },
+      where: { noteId: req.params.noteId },
     });
 
     if (updatedRows === 0) {
@@ -37,7 +37,7 @@ export const noteController = {
 
   deleteNote: catchAsync(async(req: Request, res: Response) => {
     const deleted = await Note.destroy({
-      where: { NoteID: req.params.id },
+      where: { noteId: req.params.id },
     });
 
     if (!deleted) {

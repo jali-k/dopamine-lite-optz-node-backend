@@ -15,12 +15,14 @@ export class Note extends Model<INote, CreateNoteDTO> {
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: 'noteId'
   })
-  NoteID!: number;
+  noteId!: number;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'title'
   })
   title!: string;
 
@@ -30,15 +32,21 @@ export class Note extends Model<INote, CreateNoteDTO> {
   @Column({
     type: DataType.DATE,
     defaultValue: DataType.NOW,
+    field: 'date'
   })
   date!: Date;
 
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    field: 'file'
+  })
   file?: string;
 
   @Column({
     type: DataType.DATE,
     defaultValue: DataType.NOW,
+    field: 'uploadedAt'
   })
   uploadedAt!: Date;
 
@@ -46,18 +54,21 @@ export class Note extends Model<INote, CreateNoteDTO> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'accessGroupId'
   })
-  accessGroupID!: string;
+  accessGroupId!: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(Month) as string[]),
     allowNull: false,
+    field: 'belongingMonth'
   })
   belongingMonth!: Month;
 
   @Column({
     type: DataType.ENUM(...Object.values(Lesson) as string[]),
     allowNull: false,
+    field: 'belongingLesson'
   })
   belongingLesson!: Lesson;
 
@@ -65,8 +76,9 @@ export class Note extends Model<INote, CreateNoteDTO> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    field: 'classId'
   })
-  classID!: number;
+  classId!: number;
 
   @BelongsTo(() => Class)
   class!: Class;

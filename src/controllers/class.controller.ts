@@ -25,7 +25,7 @@ export const classController = {
 
   updateClass: catchAsync(async (req: Request<UpdateClassDTO>, res: Response) => {
     const [updatedRows] = await Class.update(req.body, {
-      where: { classID: req.params.classID },
+      where: { classId: req.params.classId },
     });
 
     if (updatedRows === 0) {
@@ -37,7 +37,7 @@ export const classController = {
 
   deleteClass: catchAsync(async (req: Request, res: Response) => {
     const deleted = await Class.destroy({
-      where: { classID: req.params.id },
+      where: { classId: req.params.id },
     });
 
     if (!deleted) {

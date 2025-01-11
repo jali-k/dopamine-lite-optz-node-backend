@@ -25,7 +25,7 @@ export const lectureController = {
 
   updateLecture: catchAsync(async (req: Request<UpdateLectureDTO>, res: Response) => {
     const [updatedRows] = await Lecture.update(req.body, {
-      where: { lectureID: req.params.lectureID },
+      where: { lectureId: req.params.lectureId },
     });
 
     if (updatedRows === 0) {
@@ -37,7 +37,7 @@ export const lectureController = {
 
   deleteLecture: catchAsync(async (req: Request, res: Response) => {
     const deleted = await Lecture.destroy({
-      where: { lectureID: req.params.id },
+      where: { lectureId: req.params.id },
     });
 
     if (!deleted) {
