@@ -4,6 +4,7 @@ import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
 import { Op } from 'sequelize';
 import { CreateAccessGroupDTO, UpdateAccessGroupDTO } from '../types/accessGroup.types';
+import { Sequelize } from 'sequelize-typescript';
 
 export const accessGroupController = {
   getAllAccessGroups: catchAsync(async (req: Request, res: Response) => {
@@ -24,13 +25,13 @@ export const accessGroupController = {
     const accessGroups = await AccessGroup.findAll({
       where: {
         accessList: {
-          [Op.contains]: [email],
+          [Op.contains]: Sequelize.literal(`ARRAY['${email}']::text[]`),
         },
       },
     });
 
     if (!accessGroups || accessGroups.length === 0) {
-      throw new ApiError(404, 'Access Groups not found');
+      res.json({ success: true, data: null });
     }
 
     const accessGroupIds = accessGroups.map(group => group.accessGroupId);

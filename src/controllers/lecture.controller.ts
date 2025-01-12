@@ -3,6 +3,7 @@ import { Lecture } from '../models/Lecture';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
 import { CreateLectureDTO, UpdateLectureDTO } from '../types/lecture.types';
+import { Op } from 'sequelize';
 
 export const lectureController = {
   getAllLectures: catchAsync(async (req: Request, res: Response) => {
@@ -16,6 +17,23 @@ export const lectureController = {
       throw new ApiError(404, 'Lecture not found');
     }
     res.json({ success: true, data: lecture });
+  }),
+
+  getLectureByClassId: catchAsync(async (req: Request, res: Response) => {
+    const classId = req.params.classId;
+    const lectures = await Lecture.findAll({
+      where: {
+        classId: {
+          [Op.eq]: classId,
+        },
+      },
+    });
+
+    if (!lectures || lectures.length === 0) {
+      res.json({ success: true, data: null });
+    }
+
+    res.json({ success: true, data: lectures });
   }),
 
   createLecture: catchAsync(async (req: Request<{}, {}, CreateLectureDTO>, res: Response) => {

@@ -6,8 +6,8 @@ const router = Router();
 router.get('/', accessGroupController.getAllAccessGroups);
 router.get('/:id', accessGroupController.getAccessGroupById);
 router.post('/', accessGroupController.createAccessGroup);
-router.put('/:id', accessGroupController.updateAccessGroup);
-router.delete('/:id', accessGroupController.deleteAccessGroup);
+router.put('/:accessGroupId', accessGroupController.updateAccessGroup);
+router.delete('/:accessGroupId', accessGroupController.deleteAccessGroup);
 router.get('/email/:email', accessGroupController.getAccessGroupsByEmail);
 
 export default router;

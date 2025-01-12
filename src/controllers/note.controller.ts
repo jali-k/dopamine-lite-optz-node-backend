@@ -3,6 +3,7 @@ import { Note } from '../models/Note';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
 import { CreateNoteDTO, UpdateNoteDTO } from '../types/note.types';
+import { Op } from 'sequelize';
 
 export const noteController = {
   getAllNotes: catchAsync(async(req: Request, res: Response) => {
@@ -16,6 +17,23 @@ export const noteController = {
       throw new ApiError(404, 'Note not found');
     }
     res.json({ success: true, data: note });
+  }),
+
+  getNoteByClassId: catchAsync(async (req: Request, res: Response) => {
+    const classId = req.params.classId;
+    const lectures = await Note.findAll({
+      where: {
+        classId: {
+          [Op.eq]: classId,
+        },
+      },
+    });
+
+    if (!lectures || lectures.length === 0) {
+      res.json({ success: true, data: null });
+    }
+
+    res.json({ success: true, data: lectures });
   }),
 
   createNote: catchAsync(async(req: Request<{}, {}, CreateNoteDTO>, res: Response) => {
