@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { AccessGroup } from '../models/AccessGroup';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
+import { Op } from 'sequelize';
 import { CreateAccessGroupDTO, UpdateAccessGroupDTO } from '../types/accessGroup.types';
 
 export const accessGroupController = {
@@ -16,6 +17,24 @@ export const accessGroupController = {
       throw new ApiError(404, 'Access Group not found');
     }
     res.json({ success: true, data: accessGroup });
+  }),
+
+  getAccessGroupsByEmail: catchAsync(async (req: Request, res: Response) => {
+    const email = req.params.email;
+    const accessGroups = await AccessGroup.findAll({
+      where: {
+        accessList: {
+          [Op.contains]: [email],
+        },
+      },
+    });
+
+    if (!accessGroups || accessGroups.length === 0) {
+      throw new ApiError(404, 'Access Groups not found');
+    }
+
+    const accessGroupIds = accessGroups.map(group => group.accessGroupId);
+    res.json({ success: true, data: accessGroupIds });
   }),
 
   createAccessGroup: catchAsync(async (req: Request<{}, {}, CreateAccessGroupDTO>, res: Response) => {

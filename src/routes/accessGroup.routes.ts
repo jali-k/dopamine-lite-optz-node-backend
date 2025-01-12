@@ -8,5 +8,6 @@ router.get('/:id', accessGroupController.getAccessGroupById);
 router.post('/', accessGroupController.createAccessGroup);
 router.put('/:id', accessGroupController.updateAccessGroup);
 router.delete('/:id', accessGroupController.deleteAccessGroup);
+router.get('/email/:email', accessGroupController.getAccessGroupsByEmail);
 
 export default router;

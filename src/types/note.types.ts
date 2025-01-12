@@ -5,12 +5,12 @@ export interface INote {
   title: string;
   description?: string;
   date: Date;
-  file?: string;
+  file: string;
   uploadedAt: Date;
   accessGroupID: string;
   belongingMonth: Month;
   belongingLesson: Lesson;
-  classIs: number;
+  classId: number;
 }
 
 export type CreateNoteDTO = Omit<INote, 'NoteId' | 'uploadedAt'>;

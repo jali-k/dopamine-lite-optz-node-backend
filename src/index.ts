@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
@@ -18,6 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api', routes);
+
+// Health check
+app.get("/health", (req: Request, res: Response) => {
+    res.json({ message: "Welcome to the Dopamine Lite" });
+});
 
 // Error handling
 app.use(errorHandler);
