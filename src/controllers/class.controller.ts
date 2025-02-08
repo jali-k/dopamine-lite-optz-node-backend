@@ -3,6 +3,7 @@ import { Class } from '../models/Class';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
 import { CreateClassDTO, UpdateClassDTO } from '../types/class.types';
+import { Op } from 'sequelize';
 
 export const classController = {
   getAllClasses: catchAsync(async (req: Request, res: Response) => {
@@ -11,10 +12,28 @@ export const classController = {
   }),
 
   getClassById: catchAsync(async (req: Request, res: Response) => {
-    const classItem = await Class.findByPk(req.params.id);
+    const classItem = await Class.findByPk(req.params.classId);
     if (!classItem) {
       throw new ApiError(404, 'Class not found');
     }
+    res.json({ success: true, data: classItem });
+  }),
+
+  getClassByName: catchAsync(async (req: Request, res: Response) => {
+    const className = req.query.name as string;
+    console.log(className);
+    const classItem = await Class.findOne({
+      where: {
+        name: {
+          [Op.iLike]: `%${className}%`,
+        },
+      },
+    });
+  
+    if (!classItem) {
+      throw new ApiError(404, 'Class not found');
+    }
+  
     res.json({ success: true, data: classItem });
   }),
 
@@ -37,7 +56,7 @@ export const classController = {
 
   deleteClass: catchAsync(async (req: Request, res: Response) => {
     const deleted = await Class.destroy({
-      where: { classId: req.params.id },
+      where: { classId: req.params.classId },
     });
 
     if (!deleted) {

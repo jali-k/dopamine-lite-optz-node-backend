@@ -3,10 +3,11 @@ import { classController } from '../controllers/class.controller';
 
 const router = Router();
 
+router.get('/search', classController.getClassByName);
 router.get('/', classController.getAllClasses);
-router.get('/:id', classController.getClassById);
+router.get('/:classId', classController.getClassById);
 router.post('/', classController.createClass);
-router.put('/:id', classController.updateClass);
-router.delete('/:id', classController.deleteClass);
+router.put('/:classId', classController.updateClass);
+router.delete('/:classId', classController.deleteClass);
 
 export default router;
