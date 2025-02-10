@@ -67,7 +67,7 @@ export const accessGroupController = {
 
   deleteAccessGroup: catchAsync(async (req: Request, res: Response) => {
     const deleted = await AccessGroup.destroy({
-      where: { accessGroupId: req.params.id },
+      where: { accessGroupId: req.params.accessGroupId },
     });
 
     if (!deleted) {
