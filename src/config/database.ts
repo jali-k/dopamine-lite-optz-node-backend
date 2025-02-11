@@ -4,6 +4,7 @@ import { AccessGroup } from '../models/AccessGroup';
 import { Class } from '../models/Class';
 import { Lecture } from '../models/Lecture';
 import { Note } from '../models/Note';
+import { User } from '../models/User';
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ const sequelize = new Sequelize({
       rejectUnauthorized: false, 
     },
   },
-  models: [Class, Lecture, AccessGroup, Note],
+  models: [Class, Lecture, AccessGroup, Note, User],
   logging: false,
   pool: {
     max: 5,

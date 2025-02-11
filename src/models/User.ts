@@ -13,6 +13,7 @@ export class User extends Model<IUser> {
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    field: 'userID',
   })
   userID!: number;
 
@@ -23,24 +24,28 @@ export class User extends Model<IUser> {
     validate: {
       isEmail: true,
     },
+    field: 'email',
   })
   email!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'password',
   })
   password!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'firstName',
   })
   firstName!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    field: 'lastName',
   })
   lastName!: string;
 
@@ -48,6 +53,7 @@ export class User extends Model<IUser> {
     type: DataType.ENUM(...Object.values(UserRole)),
     allowNull: false,
     defaultValue: UserRole.STUDENT,
+    field: 'role',
   })
   role!: UserRole;
 
@@ -55,6 +61,7 @@ export class User extends Model<IUser> {
     type: DataType.BOOLEAN,
     allowNull: false,
     defaultValue: true,
+    field: 'isActive',
   })
   isActive!: boolean;
 
