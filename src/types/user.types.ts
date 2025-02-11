@@ -14,8 +14,6 @@ export interface IUser {
   role: UserRole;
   isActive: boolean;
   lastLogin?: Date;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export type CreateUserDTO = Omit<IUser, 'userID' | 'createdAt' | 'updatedAt' | 'lastLogin'>;

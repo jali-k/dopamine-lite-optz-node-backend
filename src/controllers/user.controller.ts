@@ -43,8 +43,6 @@ export const userController = {
       password: hashedPassword,
       userID: 0,
       role: UserRole.STUDENT,
-      createdAt: new Date(),
-      updatedAt: new Date()
     });
 
     const userWithoutPassword = {
