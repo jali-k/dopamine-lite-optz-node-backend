@@ -12,7 +12,8 @@ export const classController = {
   }),
 
   getClassById: catchAsync(async (req: Request, res: Response) => {
-    const classItem = await Class.findByPk(req.params.classId);
+    const classId = req.params.classId;
+    const classItem = await Class.findByPk(classId);
     if (!classItem) {
       throw new ApiError(404, 'Class not found');
     }
@@ -43,8 +44,9 @@ export const classController = {
   }),
 
   updateClass: catchAsync(async (req: Request<UpdateClassDTO>, res: Response) => {
+    const classId = req.params.classId;
     const [updatedRows] = await Class.update(req.body, {
-      where: { classId: req.params.classId },
+      where: { classId: classId },
     });
 
     if (updatedRows === 0) {
@@ -55,8 +57,9 @@ export const classController = {
   }),
 
   deleteClass: catchAsync(async (req: Request, res: Response) => {
+    const classId = req.params.classId;
     const deleted = await Class.destroy({
-      where: { classId: req.params.classId },
+      where: { classId: classId },
     });
 
     if (!deleted) {

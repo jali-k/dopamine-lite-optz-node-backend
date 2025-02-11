@@ -12,7 +12,8 @@ export const noteController = {
   }),
 
   getNoteById: catchAsync(async(req: Request, res: Response) => {
-    const note = await Note.findByPk(req.params.id);
+    const noteId = req.params.noteId;
+    const note = await Note.findByPk(noteId);
     if (!note) {
       throw new ApiError(404, 'Note not found');
     }
@@ -20,7 +21,7 @@ export const noteController = {
   }),
 
   getNoteByClassId: catchAsync(async (req: Request, res: Response) => {
-    const classId = req.params.classId;
+    const classId = parseInt(req.query.classId as string, 10);
     const lectures = await Note.findAll({
       where: {
         classId: {
@@ -42,8 +43,9 @@ export const noteController = {
   }),
 
   updateNote: catchAsync(async(req: Request<UpdateNoteDTO>, res: Response) => {
+    const noteId = req.params.noteId;
     const [updatedRows] = await Note.update(req.body, {
-      where: { noteId: req.params.noteId },
+      where: { noteId: noteId },
     });
 
     if (updatedRows === 0) {
@@ -54,8 +56,9 @@ export const noteController = {
   }),
 
   deleteNote: catchAsync(async(req: Request, res: Response) => {
+    const noteId = req.params.noteId;
     const deleted = await Note.destroy({
-      where: { noteId: req.params.id },
+      where: { noteId: noteId },
     });
 
     if (!deleted) {

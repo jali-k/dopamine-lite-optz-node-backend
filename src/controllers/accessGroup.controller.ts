@@ -13,7 +13,8 @@ export const accessGroupController = {
   }),
 
   getAccessGroupById: catchAsync(async (req: Request, res: Response) => {
-    const accessGroup = await AccessGroup.findByPk(req.params.id);
+    const accessGroupId = req.params.accessGroupId
+    const accessGroup = await AccessGroup.findByPk(accessGroupId);
     if (!accessGroup) {
       throw new ApiError(404, 'Access Group not found');
     }
@@ -21,7 +22,7 @@ export const accessGroupController = {
   }),
 
   getAccessGroupsByEmail: catchAsync(async (req: Request, res: Response) => {
-    const email = req.params.email;
+    const email = req.query.email;
     const accessGroups = await AccessGroup.findAll({
       where: {
         accessList: {
@@ -66,8 +67,9 @@ export const accessGroupController = {
   ),
 
   deleteAccessGroup: catchAsync(async (req: Request, res: Response) => {
+    const accessGroupId = req.params.accessGroupId;
     const deleted = await AccessGroup.destroy({
-      where: { accessGroupId: req.params.accessGroupId },
+      where: { accessGroupId: accessGroupId },
     });
 
     if (!deleted) {

@@ -3,7 +3,7 @@ import { classController } from '../controllers/class.controller';
 
 const router = Router();
 
-router.get('/search', classController.getClassByName);
+router.get('/name', classController.getClassByName);
 router.get('/', classController.getAllClasses);
 router.get('/:classId', classController.getClassById);
 router.post('/', classController.createClass);

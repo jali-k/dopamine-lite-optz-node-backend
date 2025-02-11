@@ -12,7 +12,8 @@ export const lectureController = {
   }),
 
   getLectureById: catchAsync(async (req: Request, res: Response) => {
-    const lecture = await Lecture.findByPk(req.params.id);
+    const lectureId = req.params.lectureId;
+    const lecture = await Lecture.findByPk(lectureId);
     if (!lecture) {
       throw new ApiError(404, 'Lecture not found');
     }
@@ -20,7 +21,7 @@ export const lectureController = {
   }),
 
   getLectureByClassId: catchAsync(async (req: Request, res: Response) => {
-    const classId = req.params.classId;
+    const classId = parseInt(req.query.classId as string, 10);
     const lectures = await Lecture.findAll({
       where: {
         classId: {
@@ -42,8 +43,9 @@ export const lectureController = {
   }),
 
   updateLecture: catchAsync(async (req: Request<UpdateLectureDTO>, res: Response) => {
+    const lectureId = req.params.lectureId;
     const [updatedRows] = await Lecture.update(req.body, {
-      where: { lectureId: req.params.lectureId },
+      where: { lectureId: lectureId },
     });
 
     if (updatedRows === 0) {
@@ -54,8 +56,9 @@ export const lectureController = {
   }),
 
   deleteLecture: catchAsync(async (req: Request, res: Response) => {
+    const lectureId = req.params.lectureId;
     const deleted = await Lecture.destroy({
-      where: { lectureId: req.params.id },
+      where: { lectureId: lectureId },
     });
 
     if (!deleted) {
