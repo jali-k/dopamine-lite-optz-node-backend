@@ -13,7 +13,7 @@ export class User extends Model<IUser> {
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    field: 'userID',
+    field: 'userId',
   })
   userID!: number;
 
