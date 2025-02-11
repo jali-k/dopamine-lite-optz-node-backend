@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { User } from '../models/User';
 import { catchAsync } from '../utils/catchAsync';
 import { ApiError } from '../middleware/error.midleware';
-import { CreateUserDTO, UpdateUserDTO } from '../types/user.types';
+import { CreateUserDTO, UpdateUserDTO, UserRole } from '../types/user.types';
 
 export const userController = {
   getAllUsers: catchAsync(async (req: Request, res: Response) => {
@@ -22,6 +22,18 @@ export const userController = {
     res.json({ success: true, data: user });
   }),
 
+  getUserAdmin: catchAsync(async (req: Request, res: Response) => {
+    const email = req.query.email as string;
+    const user = await User.findOne({
+      where: { email },
+      attributes: ['role']
+    });
+    if (!user) {
+      throw new ApiError(404, 'User not found');
+    }
+    res.json({ success: true, data: { role: user.role } });
+  }),
+
   createUser: catchAsync(async (req: Request<{}, {}, CreateUserDTO>, res: Response) => {
     const { password, ...userData } = req.body;
     const hashedPassword = await User.hashPassword(password);
@@ -30,6 +42,7 @@ export const userController = {
       ...userData,
       password: hashedPassword,
       userID: 0,
+      role: UserRole.STUDENT,
       createdAt: new Date(),
       updatedAt: new Date()
     });
